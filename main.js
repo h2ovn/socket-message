@@ -5,8 +5,11 @@ var clients = [];
 var groups = {};
 var groupCounts = 0;
 
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8004
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
+//port thằng user truy cập vào
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3030
+
+//ip thằng user truy cập vào
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '192.168.33.10'
  
 // tạo mới group code name
 function getGroupCode(){
