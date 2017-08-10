@@ -12,29 +12,26 @@ Used for transmit message between platforms
     socket.on('onRegister', function (data) {
       console.log("onRegister", data);
     });
-    socket.on('onJoin', function (data) {
-      console.log("onJoin", data);
-    });
-    socket.on('onJoinOther', function (data) {
-      console.log("onJoinOther", data);
+    socket.on('onUnRegister', function (data) {
+      console.log("onUnRegister", data);
     });
     socket.on('onMessage', function (data) {
       console.log("onMessage", data);
     });
+    socket.on('onMyMessage', function (data) {
+      console.log("onMessage", data);
+    });
+    registerRevice(groupName) {
+      // Register Revice massage form group
+      socket.emit('register', groupName);
+    }
+    unRegisterRevice(groupName) {
+      // Register Revice massage form group
+      socket.emit('unRegister', groupName);
+    }
+    sendMessage(groupName, message) {
+      socket.emit('message', groupName, message);
+    }
 
-    $(function () {
-      $('#cmdReg').click(function () {
-        socket.emit('register');
-      })
-      $('#cmdJoin').click(function () {
-        var groupName = $('#tbxRoom').val();
-        socket.emit('join', groupName);
-      })
-      $('#cmdSend').click(function () {
-        var o = { duration : 5};
-        //send message as JSON
-        socket.emit('message', o);
-      })
-    })
   </script>
 ```

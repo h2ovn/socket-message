@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+	<input type="text" id="tbxGroup" />
+	<input type="text" id="tbxInput" />
+	<button type="button" id="cmdReg">Register Group Revice Message</button>
+	<button type="button" id="cmdUnReg">unRegister Group Revice Message</button>
+	<button type="button" id="cmdSend">Send Message</button>
+	<div id="log"></div>
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<!--<script src="//socketmessage-h2ovn.rhcloud.com/socket.io/socket.io.js"></script>-->
+	<script src="//127.0.0.1:3030/socket.io/socket.io.js"></script>
+	<script>
+		function log(name, data){
+			console.log("onRegister", data);
+			$('#log').append("<div><b>" + name + "</b>: " + JSON.stringify(data) +"</div>");
+		}
+		var socket = io('http://127.0.0.1:3030/');
+		socket.on('onRegister', function (data) {
+			log("onRegister", data);
+		});
+		socket.on('onUnRegister', function (data) {
+			log("onUnRegister", data);
+		});
+		socket.on('onMessage', function (data) {
+			log("onMessage", data);
+		});
+
+		$(function () {
+			$('#cmdReg').click(function () {
+				var groupName = $('#tbxGroup').val();
+				socket.emit('register', groupName);
+			})
+			$('#cmdUnReg').click(function () {
+				var groupName = $('#tbxGroup').val();
+				socket.emit('unRegister', groupName);
+			})
+			$('#cmdSend').click(function () {
+				var groupName = $('#tbxGroup').val();
+				var mymsg = $('#tbxInput').val();
+				socket.emit('message', groupName, mymsg);
+			})
+		})
+	</script>
+</body>
+</html>
